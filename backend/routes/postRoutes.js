@@ -7,6 +7,6 @@ router.route('/')
     .get(fetchPosts)
     .post(createPost);
 
-router.route('/:id', updatePost);
+router.patch('/:id', updatePost);
 
 export default router;

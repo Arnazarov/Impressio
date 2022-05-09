@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useStyles from './formStyles';
 import FileBase64 from 'react-file-base64';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postCreateAction, postUpdateAction } from '../../actions/postActions';
 
 const Form = ({ currentId, setCurrentId }) => {
@@ -17,6 +17,16 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: '',
   });
 
+  const currentPost = useSelector(
+    (state) => currentId && state.posts.find((post) => post._id === currentId)
+  );
+
+  useEffect(() => {
+    if (currentPost) {
+      setPostData(currentPost);
+    }
+  }, [currentPost]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (currentId) {
@@ -25,7 +35,16 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(postCreateAction(postData));
     }
   };
-  const clearHandler = () => {};
+  const clearHandler = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: '',
+      selectedFile: '',
+    });
+  };
   return (
     <Paper className={styles.paper}>
       <form
@@ -34,7 +53,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${styles.root} ${styles.form} `}
         onSubmit={submitHandler}
       >
-        <Typography variant="h6">Create an Impressio</Typography>
+        <Typography variant="h6">
+          {currentId ? 'Edit' : 'Create'} an Impressio
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"

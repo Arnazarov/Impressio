@@ -23,11 +23,15 @@ export const createPost = async(req, res) => {
         
         const post = req.body;
 
-        const newPost = new Post(post);
+        if (post.creator && post.title) {
+            const newPost = new Post(post);
 
-        await newPost.save();
+            await newPost.save();
 
-        res.status(201).json(newPost);
+            res.status(201).json(newPost);
+        } else {
+            res.status(400).json('All fields should be filled');
+        }
 
 
     } catch(err) {
@@ -37,7 +41,7 @@ export const createPost = async(req, res) => {
 }
 
 // @desc    Update a post
-// @route   PUT /posts/:id
+// @route   PATCH /posts/:id
 // @access  Public
 export const updatePost = async(req, res) => {
     try {
