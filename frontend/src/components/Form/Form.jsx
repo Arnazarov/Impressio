@@ -3,9 +3,9 @@ import useStyles from './formStyles';
 import FileBase64 from 'react-file-base64';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { postCreateAction } from '../../actions/postActions';
+import { postCreateAction, postUpdateAction } from '../../actions/postActions';
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
 
@@ -19,7 +19,11 @@ const Form = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(postCreateAction(postData));
+    if (currentId) {
+      dispatch(postUpdateAction(currentId, postData));
+    } else {
+      dispatch(postCreateAction(postData));
+    }
   };
   const clearHandler = () => {};
   return (

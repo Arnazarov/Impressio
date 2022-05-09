@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE} from '../constants/postConstants';
 
 
 export const postListReducer = (posts = [] , action) => {
@@ -7,6 +7,8 @@ export const postListReducer = (posts = [] , action) => {
             return action.payload;
         case POSTS_CREATE:
             return [...posts, action.payload]
+        case POSTS_UPDATE:
+            return posts.map(post => post._id === action.payload._id ? action.payload : post);
         default:
             return posts;
     }

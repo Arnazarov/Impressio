@@ -1,2 +1,3 @@
 export const POSTS_FETCH_ALL = 'POSTS_FETCH_ALL';
 export const POSTS_CREATE = 'POSTS_CREATE'
+export const POSTS_UPDATE = 'POSTS_UPDATE'

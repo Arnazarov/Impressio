@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE} from '../constants/postConstants';
 import axios from 'axios';
 
 export const postListAction = () => async (dispatch) => {
@@ -23,6 +23,21 @@ export const postCreateAction = (newPost) => async (dispatch) => {
 
         dispatch({
             type: POSTS_CREATE, 
+            payload: data
+        })
+
+    } catch(err) {
+        console.log(err.message);
+    }
+}
+
+export const postUpdateAction = (id, updatedPost) => async (dispatch) => {
+    try {
+
+        const {data} = await axios.patch(`/posts/${id}`, updatedPost); 
+
+        dispatch({
+            type: POSTS_UPDATE, 
             payload: data
         })
 
