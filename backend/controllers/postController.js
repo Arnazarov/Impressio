@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Post from "../models/postModels.js";
 
 
@@ -27,6 +28,31 @@ export const createPost = async(req, res) => {
         await newPost.save();
 
         res.status(201).json(newPost);
+
+
+    } catch(err) {
+        res.status(409);
+        res.json({message: err.message, stack: err.stack});
+    }
+}
+
+// @desc    Update a post
+// @route   PUT /posts/:id
+// @access  Public
+export const updatePost = async(req, res) => {
+    try {
+        
+        const id = req.params.id;
+        const post = req.body;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(404).send('No post found with that id');
+        }
+        
+
+        const updatedPost = await Post.findByIdAndUpdate(id, post, {new: true});
+
+        res.status(202).json(updatedPost);
 
 
     } catch(err) {
