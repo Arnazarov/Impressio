@@ -8,7 +8,7 @@ export const postListReducer = (posts = [] , action) => {
         case POSTS_CREATE:
             return {}
         default:
-            return {}
+            return posts;
     }
 
 }
