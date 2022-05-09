@@ -1,5 +1,6 @@
 import React from 'react';
 import useStyles from './postStyles';
+import { useDispatch } from 'react-redux';
 import {
   Card,
   CardActions,
@@ -12,15 +13,22 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
+import { postDeleteAction } from '../../../actions/postActions';
 
 const Post = ({ post, setCurrentId }) => {
+  const dispatch = useDispatch();
   const styles = useStyles();
+
+  const deleteHandler = (id) => {
+    dispatch(postDeleteAction(id));
+  };
   return (
     <Card className={styles.card}>
       <CardMedia
         className={styles.media}
         image={post.selectedFile}
         title={post.title}
+        component="div"
       ></CardMedia>
       <div className={styles.overlay}>
         <Typography variant="h6">{post.creator}</Typography>
@@ -59,7 +67,11 @@ const Post = ({ post, setCurrentId }) => {
         <Button size="small" color="primary" onClick={() => {}}>
           <ThumbUpAltIcon fontSize="small" /> Like {post.likeCount}{' '}
         </Button>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => deleteHandler(post._id)}
+        >
           <DeleteIcon fontSize="small" /> Delete
         </Button>
       </CardActions>

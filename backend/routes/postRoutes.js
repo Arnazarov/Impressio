@@ -7,7 +7,7 @@ router.route('/')
     .get(fetchPosts)
     .post(createPost);
 
-router.router('/:id')
+router.route('/:id')
     .patch(updatePost)
     .delete(deletePost);
 

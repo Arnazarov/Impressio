@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE} from '../constants/postConstants';
 
 
 export const postListReducer = (posts = [] , action) => {
@@ -9,6 +9,8 @@ export const postListReducer = (posts = [] , action) => {
             return [...posts, action.payload]
         case POSTS_UPDATE:
             return posts.map(post => post._id === action.payload._id ? action.payload : post);
+        case POSTS_DELETE:
+            return posts.filter(post => post._id !== action.payload)
         default:
             return posts;
     }

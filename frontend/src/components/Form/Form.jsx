@@ -93,7 +93,7 @@ const Form = ({ currentId, setCurrentId }) => {
           value={postData.tags}
           onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
         ></TextField>
-        <div className={styles.fileInput}>
+        <div className={styles.fileInput} component="img">
           <FileBase64
             type="file"
             multiple={false}
