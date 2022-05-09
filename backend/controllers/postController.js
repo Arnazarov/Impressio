@@ -30,7 +30,7 @@ export const createPost = async(req, res) => {
 
 
     } catch(err) {
-        res.status(404);
+        res.status(409);
         res.json({message: err.message, stack: err.stack});
     }
 }
