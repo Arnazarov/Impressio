@@ -12,7 +12,7 @@ export const postListAction = () => async (dispatch) => {
         })
 
     } catch(err) {
-        console.log(err.message);
+        console.log(err);
     }
 }
 
@@ -27,7 +27,7 @@ export const postCreateAction = (newPost) => async (dispatch) => {
         })
 
     } catch(err) {
-        console.log(err.message);
+        console.log(err);
     }
 }
 
@@ -42,6 +42,6 @@ export const postUpdateAction = (id, updatedPost) => async (dispatch) => {
         })
 
     } catch(err) {
-        console.log(err.message);
+        console.log(err);
     }
 }

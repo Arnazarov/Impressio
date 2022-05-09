@@ -34,6 +34,7 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(postCreateAction(postData));
     }
+    clearHandler();
   };
   const clearHandler = () => {
     setCurrentId(null);
