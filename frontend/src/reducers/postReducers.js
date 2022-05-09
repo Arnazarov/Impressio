@@ -6,7 +6,7 @@ export const postListReducer = (posts = [] , action) => {
         case POSTS_FETCH_ALL:
             return action.payload;
         case POSTS_CREATE:
-            return {}
+            return [...posts, action.payload]
         default:
             return posts;
     }

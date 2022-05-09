@@ -15,3 +15,18 @@ export const postListAction = () => async (dispatch) => {
         console.log(err.message);
     }
 }
+
+export const postCreateAction = (newPost) => async (dispatch) => {
+    try {
+
+        const {data} = await axios.post('/posts', newPost); 
+
+        dispatch({
+            type: POSTS_CREATE, 
+            payload: data
+        })
+
+    } catch(err) {
+        console.log(err.message);
+    }
+}
