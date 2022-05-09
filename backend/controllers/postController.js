@@ -64,3 +64,26 @@ export const updatePost = async(req, res) => {
         res.json({message: err.message, stack: err.stack});
     }
 }
+
+// @desc    Remove a post
+// @route   DELETE /posts/:id
+// @access  Public
+export const deletePost = async(req, res) => {
+    try {
+        
+        const id = req.params.id;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(404).send('No post found with that id');
+        }
+        
+        await Post.findByIdAndRemove(id);
+
+        res.status(202).json({message: 'Post successfully deleted!'});
+
+
+    } catch(err) {
+        res.status(409);
+        res.json({message: err.message, stack: err.stack});
+    }
+}
