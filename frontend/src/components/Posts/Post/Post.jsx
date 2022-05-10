@@ -13,7 +13,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
-import { postDeleteAction } from '../../../actions/postActions';
+import { postDeleteAction, postLikeAction } from '../../../actions/postActions';
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
@@ -21,6 +21,10 @@ const Post = ({ post, setCurrentId }) => {
 
   const deleteHandler = (id) => {
     dispatch(postDeleteAction(id));
+  };
+
+  const likeHandler = (id) => {
+    dispatch(postLikeAction(id));
   };
   return (
     <Card className={styles.card}>
@@ -64,7 +68,11 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </CardContent>
       <CardActions className={styles.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => likeHandler(post._id)}
+        >
           <ThumbUpAltIcon fontSize="small" /> Like {post.likeCount}{' '}
         </Button>
         <Button

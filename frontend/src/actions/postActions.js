@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE} from '../constants/postConstants';
 import axios from 'axios';
 
 export const postListAction = () => async (dispatch) => {
@@ -54,6 +54,21 @@ export const postDeleteAction = (id) => async (dispatch) => {
         dispatch({
             type: POSTS_DELETE, 
             payload: id
+        })
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const postLikeAction = (id) => async (dispatch) => {
+    try {
+
+        const {data} = await axios.patch(`/posts/${id}/like`); 
+
+        dispatch({
+            type: POSTS_LIKE, 
+            payload: data
         })
 
     } catch(err) {

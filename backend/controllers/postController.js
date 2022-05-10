@@ -100,7 +100,7 @@ export const likePost = async(req, res) => {
             return res.status(404).send('No post found with that id');
         }
         
-        const updatedPost = await Post.findByIdAndUpdate(id, {$inc: {'post.likeCount' : 1}}, {new:true});
+        const updatedPost = await Post.findByIdAndUpdate(id, {$inc: {likeCount: 1}}, {new:true});
         res.status(202).json(updatedPost);
 
 
