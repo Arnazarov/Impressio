@@ -87,3 +87,25 @@ export const deletePost = async(req, res) => {
         res.json({message: err.message, stack: err.stack});
     }
 }
+
+// @desc    Like a post
+// @route   PATCH /posts/:id/like
+// @access  Public
+export const likePost = async(req, res) => {
+    try {
+        
+        const id = req.params.id;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(404).send('No post found with that id');
+        }
+        
+        const updatedPost = await Post.findByIdAndUpdate(id, {$inc: {'post.likeCount' : 1}}, {new:true});
+        res.status(202).json(updatedPost);
+
+
+    } catch(err) {
+        res.status(409);
+        res.json({message: err.message, stack: err.stack});
+    }
+}
