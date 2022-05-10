@@ -20,13 +20,14 @@ const App = () => {
     <Container maxWidth="lg">
       <AppBar className={styles.appBar} position="static" color="inherit">
         <Typography className={styles.heading} variant="h2" align="center">
-          Memories
+          Impressio
         </Typography>
         <img className={styles.image} src={logo} alt="memories" height="60" />
       </AppBar>
       <Grow in>
         <Container>
           <Grid
+            className={styles.mainContainer}
             container
             justifyContent="space-between"
             alignItems="stretch"

@@ -50,8 +50,8 @@ const Post = ({ post, setCurrentId }) => {
         </Button>
       </div>
       <div className={styles.details}>
-        <Typography variant="body2" color="textSecondary" component="h2">
-          {post.tags.map((tag) => `# ${tag}`)}
+        <Typography variant="body2" color="textSecondary" component="p">
+          {post.tags.map((tag) => ` #${tag}`)}
         </Typography>
       </div>
       <Typography
@@ -73,7 +73,7 @@ const Post = ({ post, setCurrentId }) => {
           color="primary"
           onClick={() => likeHandler(post._id)}
         >
-          <ThumbUpAltIcon fontSize="small" /> Like {post.likeCount}{' '}
+          <ThumbUpAltIcon fontSize="small" /> {`Like ${post.likeCount}`}
         </Button>
         <Button
           size="small"
