@@ -10,6 +10,8 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './authStyles';
 import AuthInput from '../../components/AuthInput/AuthInput';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 const AuthScreen = () => {
   const styles = useStyles();
@@ -19,80 +21,101 @@ const AuthScreen = () => {
   const handleChange = () => {};
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const switchAuthScreenHandler = () => setIsSignup(!isSignup);
+
+  // Google
+  const googleSuccessHandler = async (res) => {
+    console.log(res);
+  };
+  const googleFailHandler = (error) => {
+    console.log(error);
+  };
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper className={styles.paper} elevation={3}>
-        <Avatar className={styles.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography variant="h5">{isSignup ? 'Sign up' : 'Sign in'}</Typography>
-        <form className={styles.form} onSubmit={submitHandler}>
-          <Grid container spacing={2}>
-            {isSignup && (
-              <>
-                <AuthInput
-                  name="firstName"
-                  label="First Name"
-                  handleChange={handleChange}
-                  viewHalf="viewHalf"
-                  autoFocus
-                />
-                <AuthInput
-                  name="lastName"
-                  label="Last Name"
-                  handleChange={handleChange}
-                  viewHalf="viewHalf"
-                />
-              </>
-            )}
-            <AuthInput
-              name="email"
-              label="Email"
-              handleChange={handleChange}
-              type="email"
-            />
-            <AuthInput
-              name="password"
-              label="Password"
-              handleChange={handleChange}
-              type={showPassword ? 'text' : 'password'}
-              handleClickShowPassword={handleClickShowPassword}
-            />
-            {isSignup && (
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <Container component="main" maxWidth="xs">
+        <Paper className={styles.paper} elevation={3}>
+          <Avatar className={styles.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography variant="h5">
+            {isSignup ? 'Sign up' : 'Sign in'}
+          </Typography>
+          <form className={styles.form} onSubmit={submitHandler}>
+            <Grid container spacing={2}>
+              {isSignup && (
+                <>
+                  <AuthInput
+                    name="firstName"
+                    label="First Name"
+                    handleChange={handleChange}
+                    viewHalf="viewHalf"
+                    autoFocus
+                  />
+                  <AuthInput
+                    name="lastName"
+                    label="Last Name"
+                    handleChange={handleChange}
+                    viewHalf="viewHalf"
+                  />
+                </>
+              )}
               <AuthInput
-                name="confirmPassword"
-                label="Confirm Password"
+                name="email"
+                label="Email"
                 handleChange={handleChange}
-                type="password"
+                type="email"
               />
-            )}
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            size="large"
-            variant="contained"
-            color="primary"
-            className={styles.submit}
-          >
-            {isSignup ? 'Sign Up' : 'Sign In'}
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Button
-                className="textTransformNone textDecoration"
-                variant="text"
-                onClick={switchAuthScreenHandler}
-              >
-                {isSignup
-                  ? 'Have an account? Sign in'
-                  : 'No account? Register here'}
-              </Button>
+              <AuthInput
+                name="password"
+                label="Password"
+                handleChange={handleChange}
+                type={showPassword ? 'text' : 'password'}
+                handleClickShowPassword={handleClickShowPassword}
+              />
+              {isSignup && (
+                <AuthInput
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  handleChange={handleChange}
+                  type="password"
+                />
+              )}
             </Grid>
-          </Grid>
-        </form>
-      </Paper>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              size="large"
+              variant="contained"
+              color="primary"
+              className={styles.submit}
+            >
+              {isSignup ? 'Sign Up' : 'Sign In'}
+            </Button>
+            <GoogleLogin
+              onSuccess={(response) => {
+                console.log(response);
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Button
+                  className="textTransformNone textDecoration"
+                  variant="text"
+                  onClick={switchAuthScreenHandler}
+                >
+                  {isSignup
+                    ? 'Have an account? Sign in'
+                    : 'No account? Register here'}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Paper>
+      </Container>
+    </GoogleOAuthProvider>
   );
 };
 
