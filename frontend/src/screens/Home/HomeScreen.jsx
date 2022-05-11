@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
-import Posts from '../components/Posts/Posts';
-import Form from '../components/Form/Form';
+import Posts from '../../components/Posts/Posts';
+import Form from '../../components/Form/Form';
 import useStyles from './homeStyles';
 import { useDispatch } from 'react-redux';
-import { postListAction } from '../actions/postActions';
+import { postListAction } from '../../actions/postActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

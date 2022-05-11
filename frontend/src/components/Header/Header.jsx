@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const styles = useStyles();
-  const user = { name: 'Ivan', imageUrl: null };
+  const user = null;
 
   return (
     <AppBar className={styles.appBar} position="static" color="inherit">
@@ -20,7 +20,7 @@ const Navbar = () => {
         >
           Impressio
         </Typography>
-        <img className={styles.image} src={logo} alt="memories" height="60" />
+        <img className={styles.image} src={logo} alt="icon" height="60" />
       </div>
       <Toolbar className={styles.toolbar}>
         {user ? (
