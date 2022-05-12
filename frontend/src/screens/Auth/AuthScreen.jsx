@@ -11,21 +11,22 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import useStyles from './authStyles';
 import AuthInput from '../../components/AuthInput/AuthInput';
-import { useGoogleLogin, GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { USER_AUTH } from '../../constants/userConstants';
+import { userAuthAction } from '../../actions/userActions';
 
 const AuthScreen = () => {
+  const dispatch = useDispatch();
   const styles = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+
+  // Handlers
   const submitHandler = () => {};
   const handleChange = () => {};
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const switchAuthScreenHandler = () => setIsSignup(!isSignup);
-
-  // Google
-  const login = useGoogleLogin({
-    onSuccess: (res) => console.log(res),
-  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -97,7 +98,7 @@ const AuthScreen = () => {
             <Grid item>
               <GoogleLogin
                 onSuccess={(response) => {
-                  console.log(response);
+                  dispatch(userAuthAction(response.credential));
                 }}
                 onError={() => {
                   console.log('Login Failed');
