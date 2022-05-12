@@ -12,16 +12,16 @@ const protectApp = async (req, res, next) => {
             
             if (token && impressioLogin) {
                 verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
-                req.user = await User.findById(verifiedToken.id).select('-password');
+                const user = await User.findById(verifiedToken.id).select('-password');
+                req.userId = user._id;
                 next();
             } else if (!impressioLogin) {
                 verifiedToken = jwt.decode(token);
-                req.user = verifiedToken;
+                req.userId = verifiedToken.sub;
                 next();
             }
         }
-
-        
+               
         if (!token) {
             res.status(401).json({message: 'Not authorized -- token failed'}) 
         }

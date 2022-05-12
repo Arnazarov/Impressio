@@ -96,6 +96,10 @@ export const likePost = async(req, res) => {
         
         const id = req.params.id;
 
+        if (!req.user) {
+            return res.json({message: 'Unauthorized!'})
+        }
+
         if (!mongoose.isObjectIdOrHexString(id)) {
             return res.status(404).send('No post found with that id');
         }
