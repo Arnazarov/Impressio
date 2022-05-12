@@ -22,10 +22,22 @@ const AuthScreen = () => {
   const styles = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   // Handlers
-  const submitHandler = () => {};
-  const handleChange = () => {};
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(userInfo);
+  };
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const switchAuthScreenHandler = () => setIsSignup(!isSignup);
 
