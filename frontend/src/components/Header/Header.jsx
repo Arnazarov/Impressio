@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useStyles from './headerStyles';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import logo from '../../images/logo.png';
@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const styles = useStyles();
-  const user = null;
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem('userProfile'))
+  );
 
+  useEffect(() => {}, []);
   return (
     <AppBar className={styles.appBar} position="static" color="inherit">
       <div className={styles.brandContainer}>
@@ -28,7 +31,7 @@ const Navbar = () => {
             <Avatar
               className={styles.purple}
               alt={user.name}
-              src={user.imageUrl}
+              src={user.picture}
             >
               {user.name.charAt(0)}
             </Avatar>

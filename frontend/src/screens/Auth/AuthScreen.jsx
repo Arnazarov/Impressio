@@ -13,11 +13,12 @@ import useStyles from './authStyles';
 import AuthInput from '../../components/AuthInput/AuthInput';
 import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
-import { USER_AUTH } from '../../constants/userConstants';
 import { userAuthAction } from '../../actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 const AuthScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const styles = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -99,6 +100,7 @@ const AuthScreen = () => {
               <GoogleLogin
                 onSuccess={(response) => {
                   dispatch(userAuthAction(response.credential));
+                  navigate('/');
                 }}
                 onError={() => {
                   console.log('Login Failed');
