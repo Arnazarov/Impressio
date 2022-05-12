@@ -1,5 +1,6 @@
 import { USER_AUTH, USER_AUTH_RESET, USER_LOGIN, USER_SIGNUP } from "../constants/userConstants";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 export const userAuthAction = (credential) => async (dispatch) => {
     try {
@@ -21,10 +22,11 @@ export const userAuthAction = (credential) => async (dispatch) => {
 export const userLoginAction = (userInfo) => async (dispatch) => {
     try {
 
+        const { data } = await axios.post('/user/login', userInfo);
 
         dispatch({
             type: USER_LOGIN, 
-            payload: 'Logged In'
+            payload: data
         })
 
     } catch(err) {
@@ -35,10 +37,11 @@ export const userLoginAction = (userInfo) => async (dispatch) => {
 export const userSignupAction = (userInfo) => async (dispatch) => {
     try {
 
+        const { data } = await axios.post('/user/signup', userInfo);
 
         dispatch({
             type: USER_SIGNUP, 
-            payload: 'Signed Up'
+            payload: data
         })
 
     } catch(err) {
