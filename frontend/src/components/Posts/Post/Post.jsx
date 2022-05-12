@@ -1,6 +1,6 @@
 import React from 'react';
 import useStyles from './postStyles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Card,
   CardActions,
@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
@@ -18,6 +19,8 @@ import { postDeleteAction, postLikeAction } from '../../../actions/postActions';
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const styles = useStyles();
+  const userAuth = useSelector((state) => state.userAuth);
+  const { authData } = userAuth;
 
   const deleteHandler = (id) => {
     dispatch(postDeleteAction(id));
@@ -26,6 +29,35 @@ const Post = ({ post, setCurrentId }) => {
   const likeHandler = (id) => {
     dispatch(postLikeAction(id));
   };
+
+  const Likes = () => {
+    if (post.likes.length > 0) {
+      return post.likes.find(
+        (like) => like === (authData?.sub || authData?._id)
+      ) ? (
+        <>
+          <ThumbUpAltIcon fontSize="small" />
+          &nbsp;
+          {post.likes.length > 2
+            ? `You and ${post.likes.length - 1} others`
+            : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}
+        </>
+      ) : (
+        <>
+          <ThumbUpAltOutlined fontSize="small" />
+          &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <ThumbUpAltOutlined fontSize="small" />
+        &nbsp;Like
+      </>
+    );
+  };
+
   return (
     <Card className={styles.card}>
       <CardMedia
@@ -72,8 +104,9 @@ const Post = ({ post, setCurrentId }) => {
           size="small"
           color="primary"
           onClick={() => likeHandler(post._id)}
+          disabled={!authData}
         >
-          <ThumbUpAltIcon fontSize="small" /> {`Like ${post.likeCount}`}
+          <Likes />
         </Button>
         <Button
           size="small"
