@@ -39,8 +39,10 @@ const AuthScreen = () => {
     e.preventDefault();
     if (isSignup) {
       dispatch(userSignupAction(userInfo));
+      navigate('/');
     } else {
       dispatch(userLoginAction(userInfo));
+      navigate('/');
     }
   };
   const handleChange = (e) => {
