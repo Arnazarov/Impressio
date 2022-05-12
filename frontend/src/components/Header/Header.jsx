@@ -3,7 +3,7 @@ import useStyles from './headerStyles';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import logo from '../../images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../../actions/userActions';
 
 const Navbar = () => {
@@ -11,13 +11,16 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const userAuth = useSelector((state) => state.userAuth);
+  const { authData } = userAuth;
+
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem('userProfile'))
   );
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('userProfile')));
-  }, [navigate]);
+  }, [authData]);
 
   const logoutHandler = () => {
     dispatch(userLogoutAction());

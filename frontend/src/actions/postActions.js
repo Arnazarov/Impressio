@@ -1,6 +1,16 @@
 import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE} from '../constants/postConstants';
 import axios from 'axios';
 
+const API = axios.create();
+
+API.interceptors.request.use((req) => {
+    if (localStorage.getItem('userProfile')) {
+        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('userProfile')).token}`
+    }
+
+    return req;
+})
+
 export const postListAction = () => async (dispatch) => {
     try {
 
@@ -19,7 +29,9 @@ export const postListAction = () => async (dispatch) => {
 export const postCreateAction = (newPost) => async (dispatch) => {
     try {
 
-        const {data} = await axios.post('/posts', newPost); 
+
+
+        const {data} = await API.post('/posts', newPost); 
 
         dispatch({
             type: POSTS_CREATE, 
@@ -34,7 +46,7 @@ export const postCreateAction = (newPost) => async (dispatch) => {
 export const postUpdateAction = (id, updatedPost) => async (dispatch) => {
     try {
 
-        const {data} = await axios.patch(`/posts/${id}`, updatedPost); 
+        const {data} = await API.patch(`/posts/${id}`, updatedPost); 
 
         dispatch({
             type: POSTS_UPDATE, 
@@ -49,7 +61,7 @@ export const postUpdateAction = (id, updatedPost) => async (dispatch) => {
 export const postDeleteAction = (id) => async (dispatch) => {
     try {
 
-        await axios.delete(`/posts/${id}`); 
+        await API.delete(`/posts/${id}`); 
 
         dispatch({
             type: POSTS_DELETE, 
@@ -64,7 +76,7 @@ export const postDeleteAction = (id) => async (dispatch) => {
 export const postLikeAction = (id) => async (dispatch) => {
     try {
 
-        const {data} = await axios.patch(`/posts/${id}/like`); 
+        const {data} = await API.patch(`/posts/${id}/like`); 
 
         dispatch({
             type: POSTS_LIKE, 

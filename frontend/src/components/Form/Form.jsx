@@ -4,6 +4,7 @@ import FileBase64 from 'react-file-base64';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { postCreateAction, postUpdateAction } from '../../actions/postActions';
+import { Link } from 'react-router-dom';
 
 const Form = ({ currentId, setCurrentId }) => {
   const styles = useStyles();
@@ -20,6 +21,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const currentPost = useSelector(
     (state) => currentId && state.posts.find((post) => post._id === currentId)
   );
+
+  const userAuth = useSelector((state) => state.userAuth);
+  const { authData } = userAuth;
 
   useEffect(() => {
     if (currentPost) {
@@ -46,7 +50,7 @@ const Form = ({ currentId, setCurrentId }) => {
       selectedFile: '',
     });
   };
-  return (
+  return authData ? (
     <Paper className={styles.paper}>
       <form
         autoComplete="off"
@@ -125,6 +129,12 @@ const Form = ({ currentId, setCurrentId }) => {
           Clear
         </Button>
       </form>
+    </Paper>
+  ) : (
+    <Paper className={styles.paper}>
+      <Typography variant="h6" align="center">
+        Please <Link to="/login">login</Link> to perpetuate your impressions.
+      </Typography>
     </Paper>
   );
 };

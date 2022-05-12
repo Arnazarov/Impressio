@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 const postSchema = new mongoose.Schema({
     title: String,
     message: String,
+    creatorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     creator: String,
     tags: [String],
     selectedFile: String,

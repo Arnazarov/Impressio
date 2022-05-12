@@ -24,7 +24,7 @@ export const createPost = async(req, res) => {
         const post = req.body;
 
         if (post.creator && post.title) {
-            const newPost = new Post(post);
+            const newPost = new Post({...post, creatorId: req.userId});
 
             await newPost.save();
 
