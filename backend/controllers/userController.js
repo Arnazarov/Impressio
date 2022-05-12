@@ -34,5 +34,43 @@ export const loginUser = async (req, res) => {
 // @route   POST /users/signup
 // @access  Public
 export const signupUser = async (req, res) => {
+    const {firstName, lastName, email, password, confirmPassword } = req.body;
+
+    try {
+        const userExists = await User.findOne({email});
+
+        // Check if user exists in the database
+        if (userExists) {
+            res.status(400).json({message: 'User already exists!'})
+        }
+
+        // Check if both paswwords match
+        if (password !== confirmPassword) {
+            res.status(400).json({message: 'Passwords DO NOT match!'})
+        }
+
+        const passwordDecrypted = await bcrypt.hash(password, 10);
+
+        // Create user
+        const user = await User.create({
+            name: `${firstName} ${lastName}`,
+            email,
+            password: passwordDecrypted
+        })
+
+        if (user) {
+            res.status(201).json({
+                name: user.name,
+                email: user.email,
+                id: user._id,
+                token: createToken(user.email, user._id)
+            })
+        } else {
+            res.status(400).json({message: 'Invalid user data'})
+        }
+
+    } catch(err) {
+        console.log(err);
+    }
     
 }
