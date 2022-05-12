@@ -8,11 +8,11 @@ export const postListReducer = (posts = [] , action) => {
         case POSTS_CREATE:
             return [...posts, action.payload]
         case POSTS_UPDATE:
-            return posts.map(post => post._id === action.payload._id ? action.payload : post);
+            return posts.map(post => (post._id === action.payload._id ? action.payload : post));
         case POSTS_DELETE:
             return posts.filter(post => post._id !== action.payload)
         case POSTS_LIKE:
-            return posts.map(post => post._id === action.payload._id ? action.payload : post);
+            return posts.map(post => (post._id === action.payload._id ? action.payload : post));
         default:
             return posts;
     }

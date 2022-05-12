@@ -5,6 +5,7 @@ import logo from '../../images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../../actions/userActions';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
   const styles = useStyles();
@@ -18,15 +19,24 @@ const Navbar = () => {
     JSON.parse(localStorage.getItem('userProfile'))
   );
 
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('userProfile')));
-  }, [authData]);
-
   const logoutHandler = () => {
     dispatch(userLogoutAction());
     navigate('/');
     setUser(null);
   };
+
+  useEffect(() => {
+    const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        logoutHandler();
+      }
+    }
+    setUser(JSON.parse(localStorage.getItem('userProfile')));
+  }, [authData]);
+
   return (
     <AppBar className={styles.appBar} position="static" color="inherit">
       <div className={styles.brandContainer}>

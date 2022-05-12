@@ -33,7 +33,7 @@ const Post = ({ post, setCurrentId }) => {
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
-        (like) => like === (authData?.sub || authData?._id)
+        (like) => like === (authData?.sub || authData?.id)
       ) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
@@ -108,13 +108,16 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => deleteHandler(post._id)}
-        >
-          <DeleteIcon fontSize="small" /> Delete
-        </Button>
+        {(authData?.sub === post.creatorId ||
+          authData?.id === post.creatorId) && (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => deleteHandler(post._id)}
+          >
+            <DeleteIcon fontSize="small" /> Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
