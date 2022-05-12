@@ -13,7 +13,11 @@ import useStyles from './authStyles';
 import AuthInput from '../../components/AuthInput/AuthInput';
 import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
-import { userAuthAction } from '../../actions/userActions';
+import {
+  userAuthAction,
+  userSignupAction,
+  userLoginAction,
+} from '../../actions/userActions';
 import { useNavigate } from 'react-router-dom';
 
 const AuthScreen = () => {
@@ -33,7 +37,11 @@ const AuthScreen = () => {
   // Handlers
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(userInfo);
+    if (isSignup) {
+      dispatch(userSignupAction(userInfo));
+    } else {
+      dispatch(userLoginAction(userInfo));
+    }
   };
   const handleChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });

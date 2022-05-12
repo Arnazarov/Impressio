@@ -1,4 +1,4 @@
-import { USER_AUTH, USER_AUTH_RESET } from "../constants/userConstants";
+import { USER_AUTH, USER_AUTH_RESET, USER_LOGIN, USER_SIGNUP } from "../constants/userConstants";
 import jwt_decode from "jwt-decode";
 
 export const userAuthAction = (credential) => async (dispatch) => {
@@ -11,6 +11,34 @@ export const userAuthAction = (credential) => async (dispatch) => {
         dispatch({
             type: USER_AUTH, 
             payload: googleProfile
+        })
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const userLoginAction = (userInfo) => async (dispatch) => {
+    try {
+
+
+        dispatch({
+            type: USER_LOGIN, 
+            payload: 'Logged In'
+        })
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const userSignupAction = (userInfo) => async (dispatch) => {
+    try {
+
+
+        dispatch({
+            type: USER_SIGNUP, 
+            payload: 'Signed Up'
         })
 
     } catch(err) {
