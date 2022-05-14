@@ -47,7 +47,7 @@ const Navbar = () => {
           variant="h4"
           align="center"
         >
-          IMPRESSI
+          IMPRESSIO
         </Typography>
         <img className={styles.image} src={logo} alt="icon" height="70" />
       </div>

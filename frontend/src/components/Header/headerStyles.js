@@ -18,14 +18,12 @@ export default makeStyles((theme) => ({
     fontFamily: 'Macondo !important',
     fontSize: '2.4em !important',
     fontWeight: 'bold !important',
-    letterSpacing:'1rem !important',
     [theme.breakpoints.down('xs')]: {
-      letterSpacing:'0.1rem !important',
       fontSize: '1.3em !important',
     },
   },
   image: {
-    marginLeft: '0 !important',
+    marginLeft: '10px !important',
     [theme.breakpoints.down('xs')]: {
       height: 30
     },
@@ -66,6 +64,6 @@ export default makeStyles((theme) => ({
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
+    backgroundColor: '#764AF1',
   },
 }));
