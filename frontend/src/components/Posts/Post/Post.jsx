@@ -1,12 +1,14 @@
 import React from 'react';
 import useStyles from './postStyles';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Button,
+  ButtonBase,
   Typography,
 } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -18,6 +20,7 @@ import { postDeleteAction, postLikeAction } from '../../../actions/postActions';
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const styles = useStyles();
   const userAuth = useSelector((state) => state.userAuth);
   const { authData } = userAuth;
@@ -28,6 +31,10 @@ const Post = ({ post, setCurrentId }) => {
 
   const likeHandler = (id) => {
     dispatch(postLikeAction(id));
+  };
+
+  const pageDetailsHandler = () => {
+    navigate(`/posts/${post._id}`);
   };
 
   const Likes = () => {
@@ -60,23 +67,28 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <Card className={styles.card} raised elevation={6}>
-      <CardMedia
-        className={styles.media}
-        image={post.selectedFile}
-        title={post.title}
-        component="div"
-      ></CardMedia>
-      <div className={styles.overlay}>
-        <Typography variant="h6">{post.creator}</Typography>
-        <Typography variant="body2">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
+      <ButtonBase className={styles.cardAction} onClick={pageDetailsHandler}>
+        <CardMedia
+          className={styles.media}
+          image={post.selectedFile}
+          title={post.title}
+          component="div"
+        ></CardMedia>
+        <div className={styles.overlay}>
+          <Typography variant="h6">{post.creator}</Typography>
+          <Typography variant="body2">
+            {moment(post.createdAt).fromNow()}
+          </Typography>
+        </div>
+      </ButtonBase>
       <div className={styles.overlay2}>
         <Button
           dtyle={{ color: 'white' }}
           size="small"
-          onClick={() => setCurrentId(post._id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentId(post._id);
+          }}
         >
           <MoreHorizon fontSize="medium" />
         </Button>
@@ -94,6 +106,7 @@ const Post = ({ post, setCurrentId }) => {
           {post.message}
         </Typography>
       </CardContent>
+
       <CardActions className={styles.cardActions}>
         <Button
           size="small"

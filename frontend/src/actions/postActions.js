@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING, POSTS_FETCH_SINGLE} from '../constants/postConstants';
 import axios from 'axios';
 
 const API = axios.create();
@@ -22,6 +22,29 @@ export const postListAction = (page) => async (dispatch) => {
 
         dispatch({
             type: POSTS_FETCH_ALL, 
+            payload: data
+        })
+
+        dispatch({
+            type: END_LOADING
+        })
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const postFetchAction = (id) => async (dispatch) => {
+    try {
+
+        dispatch({
+            type: START_LOADING
+        })
+
+        const { data } = await API.get(`/posts/${id}`);
+
+        dispatch({
+            type: POSTS_FETCH_SINGLE, 
             payload: data
         })
 

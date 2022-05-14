@@ -1,7 +1,7 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING, POSTS_FETCH_SINGLE} from '../constants/postConstants';
 
 
-export const postListReducer = (state = {isLoading: true, posts: []} , action) => {
+export const postListReducer = (state = {isLoading: true, posts: [], post: null} , action) => {
     switch (action.type) {
         case START_LOADING:
             return {...state, isLoading: true}
@@ -13,6 +13,8 @@ export const postListReducer = (state = {isLoading: true, posts: []} , action) =
                 pageNumber: action.payload.pageNumber,
                 pages: action.payload.pages
             };
+        case POSTS_FETCH_SINGLE:
+            return {...state, post: action.payload}
         case POSTS_CREATE:
             return {...state, posts: [...state.posts, action.payload]}
         case POSTS_UPDATE:

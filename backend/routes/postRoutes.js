@@ -1,5 +1,5 @@
 import express from 'express';
-import { fetchPosts, createPost, updatePost, deletePost, likePost, searchPosts } from '../controllers/postController.js';
+import { fetchPosts, createPost, updatePost, deletePost, likePost, searchPosts, fetchPost } from '../controllers/postController.js';
 import protectApp from '../middleware/authMiddleware.js'
 
 const router = express.Router();
@@ -9,6 +9,7 @@ router.route('/')
     .post(protectApp, createPost);
 
 router.route('/:id')
+    .get(fetchPost)
     .patch(protectApp,updatePost)
     .delete(protectApp, deletePost);
 

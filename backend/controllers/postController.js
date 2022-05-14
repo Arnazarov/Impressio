@@ -21,6 +21,23 @@ export const fetchPosts = async(req, res) => {
     }
 }
 
+// @desc    Fetch single post
+// @route   GET /posts/:id
+// @access  Public
+export const fetchPost = async(req, res) => {
+    try {
+        const {id} = req.params;
+
+        const post = await Post.findById(id);
+
+        res.status(200).json(post);
+
+    } catch(err) {
+        res.status(404);
+        res.json({message: err.message, stack: err.stack});
+    }
+}
+
 // @desc    Search posts
 // @route   GET /posts/search?searchQuery&tags
 // @access  Public
