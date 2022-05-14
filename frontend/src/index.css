@@ -12,9 +12,3 @@ body {
 .textDecoration {
   text-decoration: underline !important;
 }
-
-.headingTitle {
-  color: #764AF1;
-  text-decoration: none;
-  font-family: 'Macondo', cursive !important;
-}

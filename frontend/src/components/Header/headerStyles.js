@@ -10,24 +10,54 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
-    background: '#C4DDFF'
+    background: '#EEF2FF !important',
+  },
+  heading: {
+    color: '#764AF1',
+    textDecoration: 'none',
+    fontFamily: 'Macondo !important',
+    fontSize: '2.4em !important',
+    fontWeight: 'bold !important',
+    letterSpacing:'1rem !important',
+    [theme.breakpoints.down('xs')]: {
+      letterSpacing:'0.1rem !important',
+      fontSize: '1.3em !important',
+    },
   },
   image: {
-    marginLeft: '15px',
+    marginLeft: '0 !important',
+    [theme.breakpoints.down('xs')]: {
+      height: 30
+    },
   },
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
     width: '400px',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+    },
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    width: '350px',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+      justifyContent: 'center',
+    },
+  },
+  logout: {
+    marginLeft: '20px',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '5px'
+    },
   },
   userName: {
     display: 'flex',
     alignItems: 'center',
+    textAlign: 'center',
     textTransform: 'capitalize',
   },
   brandContainer: {
@@ -36,6 +66,6 @@ export default makeStyles((theme) => ({
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: '#764AF1',
+    backgroundColor: deepPurple[500],
   },
 }));

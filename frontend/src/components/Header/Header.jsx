@@ -43,13 +43,13 @@ const Navbar = () => {
         <Typography
           component={Link}
           to="/"
-          className="headingTitle"
-          variant="h3"
+          className={styles.heading}
+          variant="h4"
           align="center"
         >
-          IMPRESSIO
+          IMPRESSI
         </Typography>
-        <img className={styles.image} src={logo} alt="icon" height="60" />
+        <img className={styles.image} src={logo} alt="icon" height="70" />
       </div>
       <Toolbar className={styles.toolbar}>
         {user ? (
@@ -80,7 +80,7 @@ const Navbar = () => {
             variant="contained"
             color="primary"
           >
-            Sign in
+            Login
           </Button>
         )}
       </Toolbar>

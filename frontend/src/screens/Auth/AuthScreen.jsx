@@ -52,7 +52,7 @@ const AuthScreen = () => {
   const switchAuthScreenHandler = () => setIsSignup(!isSignup);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{ marginBottom: '3rem' }}>
       <Paper className={styles.paper} elevation={3}>
         <Avatar className={styles.avatar}>
           <LockOutlinedIcon />
