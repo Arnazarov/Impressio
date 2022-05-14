@@ -12,11 +12,14 @@ export default makeStyles((theme) => ({
     borderRadius: 4,
     marginTop: '1rem',
     padding: '16px',
-    background: '#EEF2FF !important',
+    
   },
   gridContainer: {
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column-reverse',
     },
   },
+  mainContainer: {
+    marginBottom: theme.spacing(6),
+  }
 }));

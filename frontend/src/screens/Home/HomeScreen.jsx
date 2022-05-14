@@ -35,11 +35,7 @@ const HomeScreen = () => {
   // Local state
   const [searchTitle, setSearchTitle] = useState('');
   const [searchTags, setSearchTags] = useState([]);
-  const [currentId, setCurrentId] = useState(null);
-
-  useEffect(() => {
-    dispatch(postListAction());
-  }, [dispatch, currentId]);
+  const [currentId, setCurrentId] = useState(0);
 
   const searchPost = () => {
     if (searchTitle.trim() || searchTags) {
@@ -57,7 +53,7 @@ const HomeScreen = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className={styles.mainContainer}>
         <Grid
           className={styles.gridContainer}
           container
@@ -109,7 +105,7 @@ const HomeScreen = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper className={styles.pagination} elevation={6}>
-              <CustomPagination />
+              <CustomPagination page={page} />
             </Paper>
           </Grid>
         </Grid>

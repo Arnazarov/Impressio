@@ -3,12 +3,18 @@ import Post from "../models/postModels.js";
 
 
 // @desc    Fetch posts
-// @route   GET /posts
+// @route   GET /posts?page
 // @access  Public
 export const fetchPosts = async(req, res) => {
     try {
-        const posts = await Post.find();
-        res.status(200).json(posts);
+        const pageNumber = Number(req.query.page) || 1;
+        const pageSize = 8;
+        const count = await Post.countDocuments({});
+
+        const posts = await Post.find({}).limit(pageSize).skip(pageSize * (pageNumber - 1));
+
+        res.status(200).json({posts, pageNumber, pages: Math.ceil(count/pageSize) });
+
     } catch(err) {
         res.status(404);
         res.json({message: err.message, stack: err.stack});
@@ -16,15 +22,20 @@ export const fetchPosts = async(req, res) => {
 }
 
 // @desc    Search posts
-// @route   GET /posts/search?searchQuery&page
+// @route   GET /posts/search?searchQuery&tags
 // @access  Public
 export const searchPosts = async(req, res) => {
     try {
         const { searchQuery, tags } = req.query;
         const title = searchQuery ? new RegExp(searchQuery, 'i') : '';
+        let postsFound;
 
-        // Search either by title or tags
-        const postsFound = await Post.find({ $or: [{title}, {tags: {$in: tags.split(',')}}]});
+        if (title || tags) {
+            // Search either by title or tags
+            postsFound = await Post.find({ $or: [{title}, {tags: {$in: tags.split(',')}}]});
+        } else {
+            postsFound = await Post.find({});
+        }
 
         res.status(200).json(postsFound);
     } catch(err) {

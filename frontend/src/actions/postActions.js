@@ -11,10 +11,10 @@ API.interceptors.request.use((req) => {
     return req;
 })
 
-export const postListAction = () => async (dispatch) => {
+export const postListAction = (page) => async (dispatch) => {
     try {
 
-        const { data } = await API.get('/posts');
+        const { data } = await API.get(`/posts?page=${page}`);
 
         dispatch({
             type: POSTS_FETCH_ALL, 

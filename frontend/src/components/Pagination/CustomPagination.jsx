@@ -7,7 +7,9 @@ import { postListAction } from '../../actions/postActions';
 
 const CustomPagination = ({ page }) => {
   const styles = useStyles();
-  const { numberOfPages } = useSelector((state) => state.posts);
+  const postList = useSelector((state) => state.postList);
+  const { pages } = postList;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const CustomPagination = ({ page }) => {
   return (
     <Pagination
       classes={{ ul: styles.ul }}
-      count={numberOfPages}
+      count={pages}
       page={Number(page) || 1}
       color="primary"
       renderItem={(item) => (

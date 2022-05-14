@@ -1,22 +1,26 @@
 import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH} from '../constants/postConstants';
 
 
-export const postListReducer = (posts = [] , action) => {
+export const postListReducer = (state = {posts: []} , action) => {
     switch (action.type) {
         case POSTS_FETCH_ALL:   
-            return action.payload;
+            return {...state, 
+                posts: action.payload.posts,
+                pageNumber: action.payload.pageNumber,
+                pages: action.payload.pages
+            };
         case POSTS_CREATE:
-            return [...posts, action.payload]
+            return {...state, posts: [...state.posts, action.payload]}
         case POSTS_UPDATE:
-            return posts.map(post => (post._id === action.payload._id ? action.payload : post));
+            return {...state, posts:state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
         case POSTS_DELETE:
-            return posts.filter(post => post._id !== action.payload)
+            return {...state, posts:state.posts.filter(post => post._id !== action.payload)}
         case POSTS_LIKE:
-            return posts.map(post => (post._id === action.payload._id ? action.payload : post));
+            return {...state, posts:state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
         case POSTS_SEARCH:
-            return action.payload;
+            return  {...state, posts: action.payload}
         default:
-            return posts;
+            return state;
     }
 
 }

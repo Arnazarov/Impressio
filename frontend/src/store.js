@@ -5,7 +5,7 @@ import { postListReducer } from './reducers/postReducers';
 import { userAuthReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
-    posts: postListReducer,
+    postList: postListReducer,
     userAuth: userAuthReducer, 
 });
 

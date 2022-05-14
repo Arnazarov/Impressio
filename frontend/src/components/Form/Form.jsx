@@ -18,9 +18,9 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: '',
   });
 
-  const currentPost = useSelector(
-    (state) => currentId && state.posts.find((post) => post._id === currentId)
-  );
+  const postList = useSelector((state) => state.postList);
+  const { posts } = postList;
+  const currentPost = posts.find((post) => post._id === currentId);
 
   const userAuth = useSelector((state) => state.userAuth);
   const { authData } = userAuth;
