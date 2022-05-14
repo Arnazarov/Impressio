@@ -59,7 +59,7 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={submitHandler}
       >
         <Typography variant="h6">
-          {currentId ? 'Edit' : 'Create'} an Impressio
+          {currentId ? 'Edit' : 'Create'} a Story
         </Typography>
         <TextField
           name="creator"

@@ -21,7 +21,6 @@ const CustomPagination = ({ page }) => {
       classes={{ ul: styles.ul }}
       count={numberOfPages}
       page={Number(page) || 1}
-      variant="outlined"
       color="primary"
       renderItem={(item) => (
         <PaginationItem

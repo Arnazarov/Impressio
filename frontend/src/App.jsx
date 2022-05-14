@@ -13,13 +13,13 @@ const App = () => {
       <Container maxWidth="xl">
         <Header />
         <Routes>
-          <Route path="/" element={() => <Navigate to="/posts" />} exact />
+          <Route path="/" element={<Navigate to="/posts" />} exact />
           <Route path="/posts" element={<HomeScreen />} exact />
           <Route path="/posts/search" element={<HomeScreen />} exact />
           <Route path="/posts/:id" element={<PostDetails />} exact />
           <Route
             path="/login"
-            element={() => (!user ? <AuthScreen /> : <Navigate to="/posts" />)}
+            element={!user ? <AuthScreen /> : <Navigate to="/posts" />}
             exact
           />
         </Routes>
