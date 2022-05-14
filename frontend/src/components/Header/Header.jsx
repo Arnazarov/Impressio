@@ -44,10 +44,10 @@ const Navbar = () => {
           component={Link}
           to="/"
           className={styles.heading}
-          variant="h2"
+          variant="h3"
           align="center"
         >
-          Impressio
+          IMPRESSIO
         </Typography>
         <img className={styles.image} src={logo} alt="icon" height="60" />
       </div>
@@ -59,7 +59,7 @@ const Navbar = () => {
               alt={user.name}
               src={user.picture}
             >
-              {user.name.charAt(0)}
+              {user.name.charAt(0).toUpperCase()}
             </Avatar>
             <Typography className={styles.userName} variant="h6">
               {user.name}

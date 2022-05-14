@@ -15,6 +15,24 @@ export const fetchPosts = async(req, res) => {
     }
 }
 
+// @desc    Search posts
+// @route   GET /posts/search?searchQuery&page
+// @access  Public
+export const searchPosts = async(req, res) => {
+    try {
+        const { searchQuery, tags } = req.query;
+        const title = searchQuery ? new RegExp(searchQuery, 'i') : '';
+
+        // Search either by title or tags
+        const postsFound = await Post.find({ $or: [{title}, {tags: {$in: tags.split(',')}}]});
+
+        res.status(200).json(postsFound);
+    } catch(err) {
+        res.status(404);
+        res.json({message: err.message, stack: err.stack});
+    }
+}
+
 // @desc    Create a post
 // @route   POST /posts
 // @access  Public

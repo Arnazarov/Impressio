@@ -13,7 +13,7 @@ import Posts from '../../components/Posts/Posts';
 import Form from '../../components/Form/Form';
 import useStyles from './homeStyles';
 import { useDispatch } from 'react-redux';
-import { postListAction } from '../../actions/postActions';
+import { postListAction, postSearchAction } from '../../actions/postActions';
 import CustomPagination from '../../components/Pagination/CustomPagination';
 import ChipInput from 'material-ui-chip-input';
 
@@ -28,14 +28,32 @@ const HomeScreen = () => {
   const navigate = useNavigate();
   const query = useQuery();
   const page = query.get('page') || 1;
-  const search = query.get('search');
+  const searchQuery = query.get('search');
 
   const styles = useStyles();
+
+  // Local state
+  const [searchTitle, setSearchTitle] = useState('');
+  const [searchTags, setSearchTags] = useState([]);
   const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
     dispatch(postListAction());
   }, [dispatch, currentId]);
+
+  const searchPost = () => {
+    if (searchTitle.trim() || searchTags) {
+      dispatch(
+        postSearchAction({
+          title: searchTitle,
+          tags: searchTags.join(','),
+        })
+      );
+      navigate(`/posts/search?title=${searchTitle}&tags=${searchTags}`);
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <Grow in>
@@ -59,11 +77,35 @@ const HomeScreen = () => {
               <TextField
                 name="search"
                 variant="outlined"
-                label="Search"
+                label={
+                  <label>
+                    <i className="fa-solid fa-magnifying-glass" /> titles
+                  </label>
+                }
                 fullWidth
-                value=""
-                onChange={() => {}}
+                value={searchTitle}
+                onChange={(e) => {
+                  setSearchTitle(e.target.value);
+                }}
+                // onKeyPress={(e) => {e.keyCode === 13 && }}
               />
+              <ChipInput
+                style={{ margin: '10px 0' }}
+                label={
+                  <label>
+                    <i className="fa-solid fa-magnifying-glass" /> tags
+                  </label>
+                }
+                value={searchTags}
+                variant="outlined"
+                onAdd={(tag) => setSearchTags([...searchTags, tag])}
+                onDelete={(tag) =>
+                  setSearchTags(searchTags.filter((t) => t !== tag))
+                }
+              />
+              <Button color="primary" variant="contained" onClick={searchPost}>
+                Search
+              </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper className={styles.pagination} elevation={6}>

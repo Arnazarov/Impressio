@@ -9,7 +9,15 @@ const reducer = combineReducers({
     userAuth: userAuthReducer, 
 });
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const userInfoFromStorage = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null;
+
+const initialState = {
+    userAuth: {
+        authData: userInfoFromStorage
+    }
+}
+
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
 
 
 export default store;

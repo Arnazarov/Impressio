@@ -96,7 +96,10 @@ const Form = ({ currentId, setCurrentId }) => {
           fullWidth
           value={postData.tags}
           onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(',') })
+            setPostData({
+              ...postData,
+              tags: e.target.value.replace(/[ ]+/g, '').split(','),
+            })
           }
         ></TextField>
         <div className={styles.fileInput} component="img">
