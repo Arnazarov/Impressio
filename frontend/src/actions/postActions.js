@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING} from '../constants/postConstants';
 import axios from 'axios';
 
 const API = axios.create();
@@ -14,11 +14,19 @@ API.interceptors.request.use((req) => {
 export const postListAction = (page) => async (dispatch) => {
     try {
 
+        dispatch({
+            type: START_LOADING
+        })
+
         const { data } = await API.get(`/posts?page=${page}`);
 
         dispatch({
             type: POSTS_FETCH_ALL, 
             payload: data
+        })
+
+        dispatch({
+            type: END_LOADING
         })
 
     } catch(err) {
@@ -29,11 +37,19 @@ export const postListAction = (page) => async (dispatch) => {
 export const postSearchAction = ({title, tags}) => async (dispatch) => {
     try {
 
+        dispatch({
+            type: START_LOADING
+        })
+
         const { data } = await API.get(`/posts/search?searchQuery=${title}&tags=${tags}`);
 
         dispatch({
             type: POSTS_SEARCH, 
             payload: data
+        })
+
+        dispatch({
+            type: END_LOADING
         })
 
     } catch(err) {
@@ -44,13 +60,19 @@ export const postSearchAction = ({title, tags}) => async (dispatch) => {
 export const postCreateAction = (newPost) => async (dispatch) => {
     try {
 
-
+        dispatch({
+            type: START_LOADING
+        })
 
         const {data} = await API.post('/posts', newPost); 
 
         dispatch({
             type: POSTS_CREATE, 
             payload: data
+        })
+
+        dispatch({
+            type: END_LOADING
         })
 
     } catch(err) {

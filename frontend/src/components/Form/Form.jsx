@@ -51,7 +51,7 @@ const Form = ({ currentId, setCurrentId }) => {
     });
   };
   return authData ? (
-    <Paper className={styles.paper}>
+    <Paper className={styles.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate

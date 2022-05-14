@@ -1,8 +1,12 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING} from '../constants/postConstants';
 
 
-export const postListReducer = (state = {posts: []} , action) => {
+export const postListReducer = (state = {isLoading: true, posts: []} , action) => {
     switch (action.type) {
+        case START_LOADING:
+            return {...state, isLoading: true}
+        case END_LOADING:
+            return {...state, isLoading: false}
         case POSTS_FETCH_ALL:   
             return {...state, 
                 posts: action.payload.posts,

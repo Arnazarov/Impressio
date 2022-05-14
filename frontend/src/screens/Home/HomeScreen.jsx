@@ -13,7 +13,7 @@ import Posts from '../../components/Posts/Posts';
 import Form from '../../components/Form/Form';
 import useStyles from './homeStyles';
 import { useDispatch } from 'react-redux';
-import { postListAction, postSearchAction } from '../../actions/postActions';
+import { postSearchAction } from '../../actions/postActions';
 import CustomPagination from '../../components/Pagination/CustomPagination';
 import ChipInput from 'material-ui-chip-input';
 
@@ -61,7 +61,7 @@ const HomeScreen = () => {
           alignItems="stretch"
           spacing={3}
         >
-          <Grid item xs={12} sm={6} md={9}>
+          <Grid item xs={12} sm={6} md={9} className={styles.posts}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>

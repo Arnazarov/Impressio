@@ -21,5 +21,10 @@ export default makeStyles((theme) => ({
   },
   mainContainer: {
     marginBottom: theme.spacing(6),
+  },
+  posts: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 }));
