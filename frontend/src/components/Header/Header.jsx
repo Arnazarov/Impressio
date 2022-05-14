@@ -43,7 +43,7 @@ const Navbar = () => {
         <Typography
           component={Link}
           to="/"
-          className={styles.heading}
+          className="headingTitle"
           variant="h3"
           align="center"
         >
