@@ -34,7 +34,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (currentId) {
-      dispatch(postUpdateAction(currentId, postData));
+      dispatch(
+        postUpdateAction(currentId, { ...postData, creator: authData?.name })
+      );
     } else {
       dispatch(postCreateAction(postData));
     }

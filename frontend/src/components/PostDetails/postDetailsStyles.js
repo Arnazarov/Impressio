@@ -9,6 +9,14 @@ export default makeStyles((theme) => ({
     maxHeight: '500px',
 
   },
+  media2: {
+    borderRadius: '10px',
+    objectFit: 'cover',
+    width: '100px',
+    height: '100px',
+    maxHeight: '150px',
+
+  },
   card: {
     display: 'flex',
     width: '100%',

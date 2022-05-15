@@ -8,6 +8,9 @@ router.route('/')
     .get(fetchPosts)
     .post(protectApp, createPost);
 
+router.route('/search')
+    .get(searchPosts);
+
 router.route('/:id')
     .get(fetchPost)
     .patch(protectApp,updatePost)
@@ -16,7 +19,6 @@ router.route('/:id')
 router.route('/:id/like')
     .patch(protectApp, likePost);
 
-router.route('/search')
-    .get(searchPosts);
+
 
 export default router;

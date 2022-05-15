@@ -18,7 +18,7 @@ export const postListAction = (page) => async (dispatch) => {
             type: START_LOADING
         })
 
-        const { data } = await API.get(`/posts?page=${page}`);
+        const { data } = await axios.get(`/posts?page=${page}`);
 
         dispatch({
             type: POSTS_FETCH_ALL, 
@@ -41,7 +41,7 @@ export const postFetchAction = (id) => async (dispatch) => {
             type: START_LOADING
         })
 
-        const { data } = await API.get(`/posts/${id}`);
+        const { data } = await axios.get(`/posts/${id}`);
 
         dispatch({
             type: POSTS_FETCH_SINGLE, 
@@ -64,7 +64,7 @@ export const postSearchAction = ({title, tags}) => async (dispatch) => {
             type: START_LOADING
         })
 
-        const { data } = await API.get(`/posts/search?searchQuery=${title}&tags=${tags}`);
+        const { data } = await axios.get(`/posts/search?searchQuery=${title}&tags=${tags}`);
 
         dispatch({
             type: POSTS_SEARCH, 
