@@ -31,9 +31,6 @@ const PostDetails = () => {
     }
   }, [id]);
 
-  // useEffect(() => {
-  //   if (post) dispatch(postListAction);
-  // }, [post]);
   if (posts && post) {
     recommendedPosts = posts.filter((p) => p._id !== post._id).slice(0, 2);
   }
@@ -62,12 +59,7 @@ const PostDetails = () => {
           >
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
-          <Typography
-            gutterBottom
-            variant="h6"
-            component="p"
-            className={styles.message}
-          >
+          <Typography gutterBottom variant="h6" component="p">
             {post.message}
           </Typography>
           <Typography variant="h6">Created by: {post.creator}</Typography>

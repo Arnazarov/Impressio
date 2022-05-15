@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING, POSTS_FETCH_SINGLE} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING, POSTS_FETCH_SINGLE, POSTS_COMMENT} from '../constants/postConstants';
 
 
 export const postListReducer = (state = {isLoading: true, posts: [], post: null} , action) => {
@@ -18,13 +18,15 @@ export const postListReducer = (state = {isLoading: true, posts: [], post: null}
         case POSTS_CREATE:
             return {...state, posts: [...state.posts, action.payload]}
         case POSTS_UPDATE:
-            return {...state, posts:state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
+            return {...state, posts: state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
         case POSTS_DELETE:
-            return {...state, posts:state.posts.filter(post => post._id !== action.payload)}
+            return {...state, posts: state.posts.filter(post => post._id !== action.payload)}
         case POSTS_LIKE:
-            return {...state, posts:state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
+            return {...state, posts: state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
         case POSTS_SEARCH:
             return  {...state, posts: action.payload}
+        case POSTS_COMMENT:
+            return {...state, posts: state.posts.map(post => (post._id === action.payload._id ? action.payload : post))}
         default:
             return state;
     }

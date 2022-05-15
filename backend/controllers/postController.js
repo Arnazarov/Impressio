@@ -63,7 +63,7 @@ export const searchPosts = async(req, res) => {
 
 // @desc    Create a post
 // @route   POST /posts
-// @access  Public
+// @access  Private
 export const createPost = async(req, res) => {
     try {
         
@@ -88,7 +88,7 @@ export const createPost = async(req, res) => {
 
 // @desc    Update a post
 // @route   PATCH /posts/:id
-// @access  Public
+// @access  Private
 export const updatePost = async(req, res) => {
     try {
         
@@ -113,7 +113,7 @@ export const updatePost = async(req, res) => {
 
 // @desc    Remove a post
 // @route   DELETE /posts/:id
-// @access  Public
+// @access  Private
 export const deletePost = async(req, res) => {
     try {
         
@@ -136,7 +136,7 @@ export const deletePost = async(req, res) => {
 
 // @desc    Like a post
 // @route   PATCH /posts/:id/like
-// @access  Public
+// @access  Private
 export const likePost = async(req, res) => {
     try {
         
@@ -161,6 +161,31 @@ export const likePost = async(req, res) => {
         }
         
         const updatedPost = await Post.findByIdAndUpdate(id, post, {new:true});
+        res.status(202).json(updatedPost);
+
+
+    } catch(err) {
+        res.status(409);
+        res.json({message: err.message, stack: err.stack});
+    }
+}
+
+// @desc    Comment a post
+// @route   POST /posts/:id/comment
+// @access  Private
+export const commentPost = async(req, res) => {
+    try {
+        
+        const id = req.params.id;
+        const {comment} = req.body;
+
+        const post = await Post.findById(id);
+
+        post.comments.push(comment);
+
+        const updatedPost = await Post.findByIdAndUpdate(id, post, {new: true});
+
+
         res.status(202).json(updatedPost);
 
 

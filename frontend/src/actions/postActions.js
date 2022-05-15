@@ -1,4 +1,4 @@
-import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING, POSTS_FETCH_SINGLE} from '../constants/postConstants';
+import {POSTS_FETCH_ALL, POSTS_CREATE, POSTS_UPDATE, POSTS_DELETE, POSTS_LIKE, POSTS_SEARCH, START_LOADING, END_LOADING, POSTS_FETCH_SINGLE, POSTS_COMMENT} from '../constants/postConstants';
 import axios from 'axios';
 
 const API = axios.create();
@@ -25,7 +25,7 @@ export const postListAction = (page) => async (dispatch) => {
             payload: data
         })
 
-        localStorage.setItem('posts', data.posts.toString());
+        localStorage.setItem('posts', JSON.stringify(data.posts));
 
         dispatch({
             type: END_LOADING
@@ -144,6 +144,23 @@ export const postLikeAction = (id) => async (dispatch) => {
             type: POSTS_LIKE, 
             payload: data
         })
+
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export const postCommentAction = (comment, postId) => async (dispatch) => {
+    try {
+
+        const {data} = await API.post(`/posts/${postId}/comment`, {comment}); 
+
+        dispatch({
+            type: POSTS_COMMENT, 
+            payload: data
+        })
+
+        return data.comments;
 
     } catch(err) {
         console.log(err);

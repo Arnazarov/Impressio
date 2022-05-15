@@ -5,5 +5,8 @@ export const POSTS_UPDATE = 'POSTS_UPDATE'
 export const POSTS_DELETE = 'POSTS_DELETE'
 export const POSTS_LIKE = 'POSTS_LIKE'
 export const POSTS_SEARCH = 'POSTS_SEARCH'
+export const POSTS_COMMENT = 'POSTS_COMMENT'
+
 export const START_LOADING = 'START_LOADING'
 export const END_LOADING = 'END_LOADING'
+
