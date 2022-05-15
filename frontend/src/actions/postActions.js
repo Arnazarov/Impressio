@@ -25,6 +25,8 @@ export const postListAction = (page) => async (dispatch) => {
             payload: data
         })
 
+        localStorage.setItem('posts', data.posts.toString());
+
         dispatch({
             type: END_LOADING
         })

@@ -9,7 +9,12 @@ import moment from 'moment';
 import useStyles from './postDetailsStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { postFetchAction, postSearchAction } from '../../actions/postActions';
+import {
+  postFetchAction,
+  postListAction,
+  postSearchAction,
+} from '../../actions/postActions';
+import Comments from './Comments/Comments';
 
 const PostDetails = () => {
   const postList = useSelector((state) => state.postList);
@@ -18,18 +23,20 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const styles = useStyles();
+  let recommendedPosts = '';
 
   useEffect(() => {
     if (id) {
       dispatch(postFetchAction(id));
     }
-  }, [id, dispatch]);
+  }, [id]);
 
-  useEffect(() => {
-    if (post) dispatch(postSearchAction({ title: '', tags: '' }));
-  }, [post]);
-
-  const recommendedPosts = posts.slice(0, 2).filter((p) => p._id !== post._id);
+  // useEffect(() => {
+  //   if (post) dispatch(postListAction);
+  // }, [post]);
+  if (posts && post) {
+    recommendedPosts = posts.filter((p) => p._id !== post._id).slice(0, 2);
+  }
 
   const openPostHandler = (id) => {
     navigate(`/posts/${id}`);
@@ -68,9 +75,7 @@ const PostDetails = () => {
             {moment(post.createdAt).fromNow()}
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1">
-            <strong>Comments - coming soon!</strong>
-          </Typography>
+          <Comments post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={styles.imageSection}>

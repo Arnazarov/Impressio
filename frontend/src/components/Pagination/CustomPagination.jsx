@@ -13,9 +13,7 @@ const CustomPagination = ({ page }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (page) {
-      dispatch(postListAction(page));
-    }
+    dispatch(postListAction(page));
   }, [dispatch, page]);
 
   return (

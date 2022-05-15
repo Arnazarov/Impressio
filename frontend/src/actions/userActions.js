@@ -51,7 +51,7 @@ export const userSignupAction = (userInfo) => async (dispatch) => {
 
 export const userLogoutAction = () => async (dispatch) => {
 
-    localStorage.removeItem('userProfile');
+    localStorage.clear();
 
     dispatch({
         type: USER_AUTH_RESET

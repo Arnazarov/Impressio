@@ -10,10 +10,14 @@ const reducer = combineReducers({
 });
 
 const userInfoFromStorage = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null;
+const postsFromStorage = localStorage.getItem('posts') ? localStorage.getItem('posts').split(',') : [];
 
 const initialState = {
     userAuth: {
         authData: userInfoFromStorage
+    },
+    postList: {
+        posts: postsFromStorage
     }
 }
 
