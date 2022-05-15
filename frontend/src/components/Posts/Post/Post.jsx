@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useStyles from './postStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,15 +22,26 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const styles = useStyles();
+  const [likes, setLikes] = useState(post?.likes);
+
   const userAuth = useSelector((state) => state.userAuth);
   const { authData } = userAuth;
+
+  const userID = authData?.sub || authData?.id;
+  const likedPost = post.likes.find((like) => like === userID);
 
   const deleteHandler = (id) => {
     dispatch(postDeleteAction(id));
   };
 
-  const likeHandler = (id) => {
-    dispatch(postLikeAction(id));
+  const likeHandler = async () => {
+    dispatch(postLikeAction(post._id));
+
+    if (likedPost) {
+      setLikes(post.likes.filter((id) => id !== userID));
+    } else {
+      setLikes([...post.likes, userID]);
+    }
   };
 
   const pageDetailsHandler = () => {
@@ -38,21 +49,19 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const Likes = () => {
-    if (post.likes.length > 0) {
-      return post.likes.find(
-        (like) => like === (authData?.sub || authData?.id)
-      ) ? (
+    if (likes.length > 0) {
+      return likes.find((like) => like === userID) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
           &nbsp;
-          {post.likes.length > 2
-            ? `You and ${post.likes.length - 1} others`
-            : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}
+          {likes.length > 2
+            ? `You and ${likes.length - 1} others`
+            : `${likes.length} like${likes.length > 1 ? 's' : ''}`}
         </>
       ) : (
         <>
           <ThumbUpAltOutlined fontSize="small" />
-          &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+          &nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
         </>
       );
     }
@@ -111,7 +120,7 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
-          onClick={() => likeHandler(post._id)}
+          onClick={likeHandler}
           disabled={!authData}
         >
           <Likes />
