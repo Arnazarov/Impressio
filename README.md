@@ -54,9 +54,9 @@ $PROJECT_ROOT
 		- bcryptjs					: enables storing of passwords as hashed passwords
 		- body-parser					: Node.js body parsing middleware
 		- colors       				: get colors in your node.js console
-		- cors						: enable CORS with various options
+		- cors					: enable CORS with various options
 		- dotenv                			: loads environment variables from .env file
-		- jsonwebtoken					: for securely transferring data within parties using a JSON object
+		- jsonwebtoken				: for securely transferring data within parties using a JSON object
 
 - **Frontend**
     
@@ -66,7 +66,7 @@ $PROJECT_ROOT
 		- moment 					: date library for parsing, validating, manipulating, and formatting dates
 		- react-file-base64				: converts files to base64 format
 		- redux 					: manages and centralizes application state
-		- react-redux 					: React UI bindings layer for Redux 
+		- react-redux 				: React UI bindings layer for Redux 
 
 
 ## Steps to Install & Run
